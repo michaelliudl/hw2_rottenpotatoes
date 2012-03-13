@@ -9,15 +9,18 @@ class MoviesController < ApplicationController
   def index
     @sort=params[:sort]
     @ratings=params[:ratings]
+    redirect = false
     if @sort
         session[:sort]=@sort
     else
         @sort=session[:sort]
+        redirect = true if @sort
     end
     if @ratings
         session[:ratings]=@ratings
     else
         @ratings=session[:ratings]
+        redirect = true if @ratings
     end
     @all_ratings = Movie.all_ratings
     if @ratings
@@ -27,6 +30,9 @@ class MoviesController < ApplicationController
         @movies=Movie.order(@sort).find_all_by_rating(@ratings.keys)
     else
         @movies=Movie.order(@sort).all
+    end
+    if redirect
+        redirect_to movies_path(:sort => @sort, :ratings => @ratings)
     end
     #debugger
   end
