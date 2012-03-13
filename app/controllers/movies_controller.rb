@@ -9,6 +9,16 @@ class MoviesController < ApplicationController
   def index
     @sort=params[:sort]
     @ratings=params[:ratings]
+    if @sort
+        session[:sort]=@sort
+    else
+        @sort=session[:sort]
+    end
+    if @ratings
+        session[:ratings]=@ratings
+    else
+        @ratings=session[:ratings]
+    end
     @all_ratings = Movie.all_ratings
     if @ratings
         @ratings.keys.each do |rating|
