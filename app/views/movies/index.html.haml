@@ -5,8 +5,9 @@
   Include:
   - @all_ratings.each do |rating,value|
     = rating
-    %input{:type=>"checkbox", :name=>"ratings[#{rating}]", :checked=>value}
-  = submit_tag "Refresh", {:name=>"ratings_submit"}
+    %input{:id=>"ratings_#{rating}", :type=>"checkbox", :name=>"ratings[#{rating}]", :checked=>value}
+    /= check_box_tag "ratings[#{rating}]", {:checked=>value}
+  = submit_tag "Refresh", {:name=>"ratings_submit", :id=>"ratings_submit"}
 
 %table#movies
   %thead
